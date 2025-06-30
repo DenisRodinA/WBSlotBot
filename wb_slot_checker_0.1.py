@@ -1,3 +1,8 @@
+import os
+import sys
+import time
+import datetime
+
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.chrome.service import Service
@@ -10,9 +15,15 @@ from selenium.common.exceptions import (
     StaleElementReferenceException, WebDriverException, NoSuchElementException
 )
 
-import time
-import datetime
-
+def get_local_user_data_path():
+    # Получаем директорию, в которой находится сам скрипт
+    script_dir = os.path.dirname(os.path.abspath(sys.argv[0]))
+    profile_path = os.path.join(script_dir, "MySeleniumProfile")
+    
+    if not os.path.exists(profile_path):
+        raise FileNotFoundError(f"Папка профиля Chrome не найдена: {profile_path}")
+    
+    return profile_path
 
 def get_dates_by_weekdays(input_str, num_days=30):
     days_map = {
@@ -345,10 +356,11 @@ if __name__ == "__main__":
         else:
             print("⚠️ Не удалось определить даты.")
 
-        # Укажи свои пути
-        user_data_path = r"C:\WBSlotBot\MySeleniumProfile"
+        user_data_path = get_local_user_data_path()
         profile = "Default"
-        chromedriver_path = r"C:\WBSlotBot\chromedriver-win64\chromedriver.exe"
+        script_dir = os.path.dirname(os.path.abspath(sys.argv[0]))
+        chromedriver_path = os.path.join(script_dir, "chromedriver-win64", "chromedriver.exe")
+        
         dates_list = get_dates_by_weekdays(weekdays_input)
 
         bot = WBOrderFinder(order_number, user_data_path, profile, chromedriver_path, dates_list)
