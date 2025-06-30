@@ -4,8 +4,8 @@
 Как использовать
 Установи зависимости:
 pip install -r requirements.txt
-Укажи путь к ChromeDriver и папке с профилем браузера в самом низу wb_slot_checker_0.5.py.
+Укажи путь к ChromeDriver и папке с профилем браузера в самом низу wb_slot_checker_0.1.py.
 
 Запусти скрипт:
-python wb_slot_checker_0.5.py
+python wb_slot_checker_0.1.py
 Бот попросит ввести номер заказа и дни недели. Потом откроет сайт и попробует всё сделать сам.
